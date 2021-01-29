@@ -3,7 +3,6 @@ import { PAGE_URL } from '../utils/constant/index';
 import { IRecipe } from '../models/models';
 
 const RecipeCards = ({ recipe }) => {
-    console.log(recipe);
     return (
         <div className="col mb-4">
             <div className="card h-100">
