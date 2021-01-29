@@ -24,6 +24,7 @@ class RecipeForm extends React.Component {
 
     render() {
         const { recipe } = this.state;
+        const { action } = this.props;
 
         return (
             <form>

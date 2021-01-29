@@ -16,12 +16,12 @@ export default [
         exact: false,
     },
     {
-        path: '/update',
+        path: '/update/:id',
         component: UpdateRecipe,
         exact: false,
     },
     {
-        path: '/view',
+        path: '/view/:id',
         component: DetailsRecipe,
         exact: false,
     },
