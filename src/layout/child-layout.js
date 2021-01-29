@@ -6,7 +6,7 @@ const ChildLayout = (props) => {
     
     return (
         <div className="wrap">
-            <button type="button" className="btn btn-primary"  onClick={() => history.goBack()}>Return</button>
+            <button type="button" className="btn btn-primary mb-5"  onClick={() => history.goBack()}>Go Back</button>
             {props.children}
         </div>
     )

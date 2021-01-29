@@ -13,5 +13,6 @@ body {
 .card-img-top {
   min-height: 170px;
   width: 100%;
+  overflow: hidden;
   background-color: #d9d9d9;
 }

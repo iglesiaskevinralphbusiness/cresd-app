@@ -9,7 +9,13 @@ const PAGE_URL = {
     pageNotFound: '/not-found',
 }
 
+const FORM_ACTION = {
+    add: 'add',
+    update: 'update',
+}
+
 export {
     API_URL,
     PAGE_URL,
+    FORM_ACTION,
 }
