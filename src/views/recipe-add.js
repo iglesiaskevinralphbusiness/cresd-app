@@ -8,7 +8,7 @@ class Home extends React.Component {
         return (
             <ChildLayout>
                 <h2>Add New Recipe</h2>
-                <RecipeForm action={FORM_ACTION.add}/>
+                <RecipeForm action={FORM_ACTION.add} />
             </ChildLayout>
         );
     }

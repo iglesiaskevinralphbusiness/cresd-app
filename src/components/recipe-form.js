@@ -1,70 +1,63 @@
 import React from "react";
-import TextInput from './inputs/text-input';
-import NumberInput from './inputs/number-input';
+import FormInput from './recipe-form-input';
+import { getRecipe } from '../services/services';
+import { FORM_ACTION, FORM_RECIPE_INPUTS, INPUT_GROUP } from '../utils/constant/index';
+import { GenerateIngredients, GenerateDirections } from '../utils/helpers/index';
+import { findIndex } from 'lodash';
 
 class RecipeForm extends React.Component {
     state = {
         recipe: {
-          title: "",
-          description: "",
-          cookTime: "",
-          prepTime: "",
-          servings: "",
-          directions: [],
-          ingredients: []
+            title: "",
+            description: "",
+            cookTime: "",
+            prepTime: "",
+            servings: "",
+            ingredients: [],
+            directions: [],
         },
+        forms: FORM_RECIPE_INPUTS,
     };
     
-    handleChange = e => {
+    handleChange = (e, parent) => {
         const { currentTarget: input } = e;
         const recipe = { ...this.state.recipe };
-        recipe[input.name] = input.value;
-        this.setState({ recipe });
+        if(!parent.name){
+            recipe[input.name] = input.value;
+            this.setState({ recipe });
+        } else {
+            recipe[parent.name][parent.index][parent.child] = input.value;
+            this.setState({ recipe });
+        }
     };
 
-    render() {
-        const { recipe } = this.state;
-        const { action } = this.props;
+    handleAddItem = (name) => {
+        const recipe = { ...this.state.recipe };
+        if(name === INPUT_GROUP.ingredients){
+            recipe[name].push(GenerateIngredients());
+        } else {
+            recipe[name].push(GenerateDirections());
+        }
+        this.setState({ recipe });
+    }
 
+    componentDidMount(){
+        const { action, recipeId } = this.props;
+        if(action === FORM_ACTION.update){
+            getRecipe(recipeId).then((res) => {
+                const recipe = res.data;
+                this.setState({ recipe });
+            });
+        }
+    }
+
+    render() {
+        const { recipe, forms } = this.state;
         return (
             <form>
-                <TextInput
-                    name='title'
-                    label='Title'
-                    type='text'
-                    value={recipe.title}
-                    onChange={this.handleChange}
-                />
-                <TextInput
-                    name='description'
-                    label='Description'
-                    type='text'
-                    value={recipe.description}
-                    onChange={this.handleChange}
-                />
-                <NumberInput
-                    name='cookTime'
-                    label='Cooking Time'
-                    type='text'
-                    value={recipe.cookTime}
-                    onChange={this.handleChange}
-                />
-                <NumberInput
-                    name='prepTime'
-                    label='Preparation Time'
-                    type='text'
-                    value={recipe.prepTime}
-                    onChange={this.handleChange}
-                />
-                <NumberInput
-                    name='servings'
-                    label='Serving'
-                    type='text'
-                    value={recipe.servings}
-                    onChange={this.handleChange}
-                />
+                { forms.map(input => <FormInput recipe={recipe} input={input} key={input.name} handleChange={this.handleChange} handleAddItem={this.handleAddItem} />) }
                 <button type='submit' className="btn btn-primary">Submit</button>
-          </form>
+            </form>
         );
     }
 }
