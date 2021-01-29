@@ -3,7 +3,6 @@ import FormInput from './recipe-form-input';
 import { getRecipe } from '../services/services';
 import { FORM_ACTION, FORM_RECIPE_INPUTS, INPUT_GROUP } from '../utils/constant/index';
 import { GenerateIngredients, GenerateDirections } from '../utils/helpers/index';
-import { findIndex } from 'lodash';
 
 class RecipeForm extends React.Component {
     state = {
@@ -24,11 +23,10 @@ class RecipeForm extends React.Component {
         const recipe = { ...this.state.recipe };
         if(!parent.name){
             recipe[input.name] = input.value;
-            this.setState({ recipe });
         } else {
             recipe[parent.name][parent.index][parent.child] = input.value;
-            this.setState({ recipe });
         }
+        this.setState({ recipe });
     };
 
     handleAddItem = (name) => {
@@ -38,6 +36,13 @@ class RecipeForm extends React.Component {
         } else {
             recipe[name].push(GenerateDirections());
         }
+        this.setState({ recipe });
+    }
+
+    handleDeleteItem = (name, index) => {
+        const recipe = { ...this.state.recipe };
+        const recipeItem = recipe[name].slice(0, index).concat(recipe[name].slice(index + 1, recipe[name].length))
+        recipe[name] = recipeItem;
         this.setState({ recipe });
     }
 
@@ -55,7 +60,18 @@ class RecipeForm extends React.Component {
         const { recipe, forms } = this.state;
         return (
             <form>
-                { forms.map(input => <FormInput recipe={recipe} input={input} key={input.name} handleChange={this.handleChange} handleAddItem={this.handleAddItem} />) }
+                { 
+                    forms.map(input => {
+                        return <FormInput 
+                            recipe={recipe}
+                            input={input} 
+                            key={input.name} 
+                            handleChange={this.handleChange} 
+                            handleAddItem={this.handleAddItem} 
+                            handleDeleteItem={this.handleDeleteItem} 
+                        />
+                    })
+                }
                 <button type='submit' className="btn btn-primary">Submit</button>
             </form>
         );
