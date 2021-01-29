@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from 'react-router-dom';
 import { PAGE_URL } from '../utils/constant/index';
 
 const RecipeCards = ({ recipe }) => {
@@ -10,7 +9,7 @@ const RecipeCards = ({ recipe }) => {
                 <div className="card-body">
                     <h5 className="card-title">{ recipe.title }</h5>
                     <p className="card-text">{ recipe.description }</p>
-                    <a className="btn btn-primary mr-2" href={`${PAGE_URL.updateRecipe}/${recipe.uuid}`} >Edit</a>
+                    <a className="btn btn-primary mr-2" href={`${PAGE_URL.detailsRecipe}/${recipe.uuid}`} >View</a>
                     <a className="btn btn-danger">Delete</a>
                 </div>
                 <div className="card-footer">

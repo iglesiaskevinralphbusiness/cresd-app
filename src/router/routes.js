@@ -1,6 +1,7 @@
-import Home from '../views/home';
-import AddRecipe from '../views/add-recipe';
-import UpdateRecipe from '../views/update-recipe';
+import Home from '../views/recipe';
+import AddRecipe from '../views/recipe-add';
+import UpdateRecipe from '../views/recipe-update';
+import DetailsRecipe from '../views/recipe-details';
 import NotFound from '../views/404';
 
 export default [
@@ -17,6 +18,11 @@ export default [
     {
         path: '/update',
         component: UpdateRecipe,
+        exact: false,
+    },
+    {
+        path: '/view',
+        component: DetailsRecipe,
         exact: false,
     },
     {

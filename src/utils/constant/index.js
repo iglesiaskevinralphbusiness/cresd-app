@@ -5,6 +5,7 @@ const PAGE_URL = {
     home: '/',
     addRecipe:'/add',
     updateRecipe: '/update',
+    detailsRecipe: '/view',
     pageNotFound: '/not-found',
 }
 
