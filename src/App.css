@@ -10,3 +10,8 @@ body {
   width: 100%;
   margin: auto;
 }
+.card-img-top {
+  min-height: 170px;
+  width: 100%;
+  background-color: #d9d9d9;
+}
