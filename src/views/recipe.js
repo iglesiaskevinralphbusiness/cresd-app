@@ -12,10 +12,9 @@ class Home extends React.Component {
 
     componentDidMount(){
         getRecipes().then((res) => {
-            this.setState({ recipes: res.data });
-        }).catch((error) => {
-            console.log(error);
-        });
+            const recipes = res.data;
+            this.setState({ recipes });
+        })
     }
 
     render() {

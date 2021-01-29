@@ -15,9 +15,8 @@ class Home extends React.Component {
         const recipeId = this.props.match.params.id;
         getRecipe(recipeId).then((res) => {
             console.log(res);
-            this.setState({ recipe: res.data });
-        }).catch((error) => {
-            console.log(error);
+            const recipe = res.data;
+            this.setState({ recipe });
         });
     }
 
