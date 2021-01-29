@@ -1,6 +1,6 @@
 import React from "react"
 import ChildLayout from '../layout/child-layout';
-import { getRecipe } from '../services/services';
+import { getRecipe, deleteRecipe } from '../services/services';
 import { PAGE_URL } from '../utils/constant/index';
 
 
@@ -19,6 +19,13 @@ class Home extends React.Component {
             this.setState({ recipe: res.data });
         }).catch((error) => {
             console.log(error);
+        });
+    }
+
+    handleDelete = () => {
+        const recipeId = this.props.match.params.id;
+        deleteRecipe(recipeId).then(() => {
+            this.props.history.push("/");
         });
     }
 
@@ -81,7 +88,7 @@ class Home extends React.Component {
                         </a>
                         <a 
                             className="btn btn-danger mb-5" 
-                            href={PAGE_URL.addRecipe}
+                            onClick={this.handleDelete}
                         >
                             Delete
                         </a>
