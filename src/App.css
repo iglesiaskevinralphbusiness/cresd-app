@@ -34,3 +34,16 @@ ul.directions li:before {
   content: counter(my-awesome-counter) ". ";
   font-weight: bold;
 }
+.special {
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 10px 20px;
+}
+.special p {
+  margin: 0;
+  padding: 0;
+}
+.special p a {
+  color: green;
+  text-decoration: underline;
+}

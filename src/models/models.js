@@ -14,4 +14,16 @@ export const IRecipe = PropTypes.shape({
     directions: PropTypes.array,
 });
 
+export const ISpecial = PropTypes.shape({
+    uuid: PropTypes.string,
+    ingredientId: PropTypes.string,
+    type: PropTypes.string,
+    title: PropTypes.string,
+    geo: PropTypes.string,
+    text: PropTypes.string,
+});
+
 export const IFunc = PropTypes.func;
+export const IString = PropTypes.string;
+export const IArray = PropTypes.array;
+export const IAny = PropTypes.any;

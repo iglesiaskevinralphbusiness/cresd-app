@@ -1,7 +1,7 @@
 import React from "react"
 import ChildLayout from '../layout/child-layout';
 import RecipeTable from '../components/recipe-table';
-import { getRecipe, deleteRecipe } from '../services/services';
+import { getRecipe, deleteRecipe, getSpecials } from '../services/services';
 import { PAGE_URL } from '../utils/constant/index';
 
 
@@ -9,6 +9,7 @@ class Home extends React.Component {
 
     state = {
         recipe: {},
+        specials: [],
     }
 
     componentDidMount(){
@@ -17,6 +18,11 @@ class Home extends React.Component {
             console.log(res);
             const recipe = res.data;
             this.setState({ recipe });
+        });
+        getSpecials().then((res) => {
+            console.log(res);
+            const specials = res.data;
+            this.setState({ specials });
         });
     }
 
@@ -28,7 +34,7 @@ class Home extends React.Component {
     }
 
     render() {
-        const { recipe } = this.state;
+        const { recipe, specials } = this.state;
 
         return (
             <ChildLayout>
@@ -37,7 +43,7 @@ class Home extends React.Component {
                     <div className="recipe-detail-cover mb-4">
                         <img src={ recipe.images?.full } className="img-fluid" alt="..." />
                     </div>
-                    <RecipeTable recipe={recipe}/>
+                    <RecipeTable recipe={recipe} specials={specials} />
                     <div>
                         <a 
                             className="btn btn-primary mb-5 mr-2" 

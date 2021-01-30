@@ -1,7 +1,14 @@
 import React from "react";
-import { IRecipe } from '../models/models';
+import { IRecipe, IArray } from '../models/models';
+import SpecialCards from './special-cards';
+import { find } from 'lodash';
 
-const RecipeTable = ({ recipe }) => {
+const RecipeTable = ({ recipe, specials }) => {
+
+    const getSpecial = (ingredientId) => {
+        return find(specials, special => special.ingredientId === ingredientId);
+    }
+
     return (
         <table className="table table-bordered mb-4">
             <tbody>
@@ -15,7 +22,12 @@ const RecipeTable = ({ recipe }) => {
                         <ul>
                             {
                                 recipe.ingredients?.map((ingredient, index) => {
-                                    return <li key={`ingredient_${index}`}>{ ingredient.amount } { ingredient.measurement } of { ingredient.name }</li>
+                                    return (
+                                        <li key={`ingredient_${index}`}>
+                                            <span>{ ingredient.amount } { ingredient.measurement } of { ingredient.name }</span>
+                                            <SpecialCards special={getSpecial(ingredient.uuid)} />
+                                        </li>
+                                    )
                                 })
                             }
                         </ul>
@@ -48,6 +60,7 @@ const RecipeTable = ({ recipe }) => {
 
 RecipeTable.propTypes  = {
     recipe: IRecipe,
+    specials: IArray,
 }
 
 export default RecipeTable;
