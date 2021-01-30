@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const GenerateId = (length) => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -22,4 +24,8 @@ export const GenerateDirections = () => {
         instructions: '',
         optional: false,
     }
+}
+
+export const TimeNow = () => {
+    return moment().format('MM/DD/YYYY HH:mm:ss A');
 }

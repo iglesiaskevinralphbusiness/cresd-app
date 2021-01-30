@@ -4,7 +4,7 @@ import { getRecipe, addRecipe, updateRecipe } from '../services/services';
 import { FORM_ACTION, FORM_RECIPE_INPUTS, INPUT_GROUP, PAGE_URL } from '../utils/constant/index';
 import { GenerateIngredients, GenerateDirections } from '../utils/helpers/index';
 import { findIndex, mapKeys, map } from 'lodash';
-import { GenerateId } from '../utils/helpers/index';
+import { GenerateId, TimeNow } from '../utils/helpers/index';
 
 class RecipeForm extends React.Component {
     state = {
@@ -50,11 +50,14 @@ class RecipeForm extends React.Component {
         const recipe = this.generateRecipeForm();
         if(action === FORM_ACTION.add){
             recipe['uuid'] = GenerateId(20);
+            recipe['postDate'] = TimeNow();
+            recipe['editDate'] = TimeNow();
             addRecipe(recipe).then(() => {
                 this.props.history.push(PAGE_URL.home);
             });
         } else {
             recipe['uuid'] = recipeId;
+            recipe['editDate'] = TimeNow();
             updateRecipe(recipeId, recipe).then(() => {
                 this.props.history.push(PAGE_URL.home);
             });
