@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { map } from 'lodash';
 
 export const GenerateId = (length) => {
     let result = '';
@@ -28,4 +29,12 @@ export const GenerateDirections = () => {
 
 export const TimeNow = () => {
     return moment().format('MM/DD/YYYY HH:mm:ss A');
+}
+
+export const GenerateRecipeForm = (forms) => {
+    let recipe = {};
+    map(forms, input => {
+        recipe[input.name] = input.value;
+    });
+    return recipe;
 }
