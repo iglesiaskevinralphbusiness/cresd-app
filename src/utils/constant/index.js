@@ -25,31 +25,37 @@ const FORM_RECIPE_INPUTS = [
         name: 'title',
         label: 'Title',
         type: FORM_TYPES.text,
+        value: '',
     },
     {
         name: 'description',
         label: 'Description',
         type: FORM_TYPES.text,
+        value: '',
     },
     {
         name: 'cookTime',
         label: 'Cooking Time',
         type: FORM_TYPES.number,
+        value: '',
     },
     {
         name: 'prepTime',
         label: 'Preperation Time',
         type: FORM_TYPES.number,
+        value: '',
     },
     {
         name: 'servings',
         label: 'Servings',
         type: FORM_TYPES.number,
+        value: '',
     },
     {
         name: 'ingredients',
         label: 'Ingredients',
         type: FORM_TYPES.group,
+        value: [],
         inputs: [
             {
                 name: 'name',
@@ -72,6 +78,7 @@ const FORM_RECIPE_INPUTS = [
         name: 'directions',
         label: 'Directions',
         type: FORM_TYPES.group,
+        value: [],
         inputs: [
             {
                 name: 'instructions',

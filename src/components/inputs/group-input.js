@@ -1,5 +1,6 @@
 import React from "react";
-import FormInput from '../recipe-form-input';
+import RecipeFormInput from '../recipe-form-input';
+import { FORM_TYPES } from '../../utils/constant/index';
 
 const ListInput = ({ index, name, value, inputs, onChange, handleDeleteItem }) => {
     return (
@@ -7,9 +8,11 @@ const ListInput = ({ index, name, value, inputs, onChange, handleDeleteItem }) =
             {
                 inputs.map(input => {
                     const child = input.name;
+                    const currentValue = input.type === FORM_TYPES.number ? value[child] ? value[child] : 0 : value[child];
+                    input.value = currentValue;
                     return (
                         <div className="col-sm"  key={input.name}>
-                            <FormInput recipe={value} input={input} handleChange={(e) => onChange(e, { name, child, index })} />
+                            <RecipeFormInput input={input} handleChange={(e) => onChange(e, { name, child, index })} />
                         </div>
                     )
                 })

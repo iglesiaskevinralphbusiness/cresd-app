@@ -1,71 +1,73 @@
 import React from "react";
-import FormInput from './recipe-form-input';
+import RecipeFormInput from './recipe-form-input';
 import { getRecipe } from '../services/services';
 import { FORM_ACTION, FORM_RECIPE_INPUTS, INPUT_GROUP } from '../utils/constant/index';
 import { GenerateIngredients, GenerateDirections } from '../utils/helpers/index';
+import { findIndex, mapKeys } from 'lodash';
 
 class RecipeForm extends React.Component {
     state = {
-        recipe: {
-            title: "",
-            description: "",
-            cookTime: "",
-            prepTime: "",
-            servings: "",
-            ingredients: [],
-            directions: [],
-        },
         forms: FORM_RECIPE_INPUTS,
     };
     
     handleChange = (e, parent) => {
         const { currentTarget: input } = e;
-        const recipe = { ...this.state.recipe };
+        const forms = [ ...this.state.forms ];
         if(!parent){
-            recipe[input.name] = input.value;
+            const indexSingle = findIndex(forms, form => form.name == input.name);
+            forms[indexSingle].value = input.value;
         } else {
-            recipe[parent.name][parent.index][parent.child] = input.value;
+            const indexParent = findIndex(forms, form => form.name == parent.name);
+            forms[indexParent].value[parent.index][parent.child] = input.value;
         }
-        this.setState({ recipe });
+        this.setState({ forms });
     };
 
     handleAddItem = (name) => {
-        const recipe = { ...this.state.recipe };
+        const forms = [ ...this.state.forms ];
+        const index = findIndex(forms, form => form.name == name);
         if(name === INPUT_GROUP.ingredients){
-            recipe[name].push(GenerateIngredients());
+            forms[index].value.push(GenerateIngredients());
         } else {
-            recipe[name].push(GenerateDirections());
+            forms[index].value.push(GenerateDirections());
         }
-        this.setState({ recipe });
+        this.setState({ forms });
     }
 
     handleDeleteItem = (name, index) => {
-        const recipe = { ...this.state.recipe };
-        const recipeItem = recipe[name].slice(0, index).concat(recipe[name].slice(index + 1, recipe[name].length))
-        recipe[name] = recipeItem;
-        this.setState({ recipe });
+        const forms = [ ...this.state.forms ];
+        const itemIndex = findIndex(forms, form => form.name == name);
+        const itemValue = forms[itemIndex].value;
+        const recipeItem = itemValue.slice(0, index).concat(itemValue.slice(index + 1, itemValue.length));
+        forms[itemIndex].value = recipeItem;
+        this.setState({ forms });
     }
 
     componentDidMount(){
         const { action, recipeId } = this.props;
+        const forms = [ ...this.state.forms ];
         if(action === FORM_ACTION.update){
             getRecipe(recipeId).then((res) => {
-                const recipe = res.data;
-                this.setState({ recipe });
+                mapKeys(res.data, (value, key) => {
+                    const index = findIndex(forms, form => form.name === key);
+                    if(forms[index]){
+                        forms[index].value = value;
+                    }
+                });
+                this.setState({ forms });
             });
         }
     }
 
     render() {
-        const { recipe, forms } = this.state;
+        const { forms } = this.state;
         return (
             <form>
                 { 
                     forms.map(input => {
-                        return <FormInput 
-                            recipe={recipe}
-                            input={input} 
+                        return <RecipeFormInput 
                             key={input.name} 
+                            input={input} 
                             handleChange={this.handleChange} 
                             handleAddItem={this.handleAddItem} 
                             handleDeleteItem={this.handleDeleteItem} 

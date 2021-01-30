@@ -4,14 +4,14 @@ import NumberInput from './inputs/number-input';
 import GroupInput from './inputs/group-input';
 import { FORM_TYPES } from '../utils/constant/index';
 
-const FormInput = ({ recipe, input, handleChange, handleAddItem, handleDeleteItem }) => {
+const FormInput = ({ input, handleChange, handleAddItem, handleDeleteItem }) => {
     switch(input.type){
         case FORM_TYPES.text:
             return <TextInput
                 name={input.name}
                 label={input.label}
                 type={input.type}
-                value={recipe[input.name]}
+                value={input.value}
                 onChange={handleChange}
             />
         case FORM_TYPES.number:
@@ -19,7 +19,7 @@ const FormInput = ({ recipe, input, handleChange, handleAddItem, handleDeleteIte
                 name={input.name}
                 label={input.label}
                 type={input.type}
-                value={recipe[input.name]}
+                value={input.value}
                 onChange={handleChange}
             />
         case FORM_TYPES.group:
@@ -28,7 +28,7 @@ const FormInput = ({ recipe, input, handleChange, handleAddItem, handleDeleteIte
                 label={input.label}
                 type={input.type}
                 inputs={input.inputs}
-                values={recipe[input.name]}
+                values={input.value}
                 onChange={handleChange}
                 handleAddItem={handleAddItem}
                 handleDeleteItem={handleDeleteItem}
