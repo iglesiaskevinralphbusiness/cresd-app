@@ -3,6 +3,7 @@ import FullLayout from '../layout/full-layout';
 import { PAGE_URL } from '../utils/constant/index';
 import { getRecipes, deleteRecipe } from '../services/services';
 import RecipeCards from '../components/recipe-cards';
+import { filter } from 'lodash';
 
 class Home extends React.Component {
 
@@ -12,19 +13,16 @@ class Home extends React.Component {
 
     handleDelete = (id) => {
         deleteRecipe(id).then(() => {
-            this.loadRecipes();
+            const recipes = filter(this.state.recipes, recipe => recipe.uuid !== id);
+            this.setState({ recipes });
         });
     }
 
-    loadRecipes = () => {
+    componentDidMount(){
         getRecipes().then((res) => {
             const recipes = res.data;
             this.setState({ recipes });
         })
-    }
-
-    componentDidMount(){
-        this.loadRecipes();
     }
 
     render() {
