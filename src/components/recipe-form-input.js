@@ -3,6 +3,7 @@ import TextInput from  './inputs/text-input';
 import NumberInput from './inputs/number-input';
 import GroupInput from './inputs/group-input';
 import { FORM_TYPES } from '../utils/constant/index';
+import { IAny, IFunc } from '../models/models';
 
 const FormInput = ({ input, handleChange, handleAddItem, handleDeleteItem }) => {
     switch(input.type){
@@ -37,5 +38,13 @@ const FormInput = ({ input, handleChange, handleAddItem, handleDeleteItem }) => 
             return;
     }
 }
+
+FormInput.propTypes  = {
+    input: IAny,
+    handleChange: IFunc,
+    handleAddItem: IFunc,
+    handleDeleteItem: IFunc,
+}
+
 
 export default FormInput;
