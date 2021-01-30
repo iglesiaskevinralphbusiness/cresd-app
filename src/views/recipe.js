@@ -1,7 +1,7 @@
 import React from "react";
 import FullLayout from '../layout/full-layout';
 import { PAGE_URL } from '../utils/constant/index';
-import { getRecipes } from '../services/services';
+import { getRecipes, deleteRecipe } from '../services/services';
 import RecipeCards from '../components/recipe-cards';
 
 class Home extends React.Component {
@@ -10,11 +10,21 @@ class Home extends React.Component {
         recipes: [],
     }
 
-    componentDidMount(){
+    handleDelete = (id) => {
+        deleteRecipe(id).then(() => {
+            this.loadRecipes();
+        });
+    }
+
+    loadRecipes = () => {
         getRecipes().then((res) => {
             const recipes = res.data;
             this.setState({ recipes });
         })
+    }
+
+    componentDidMount(){
+        this.loadRecipes();
     }
 
     render() {
@@ -33,7 +43,7 @@ class Home extends React.Component {
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                         { 
                             this.state.recipes.map((recipe, index) => {
-                                return <RecipeCards recipe={recipe} key={`recipe_${index}`} />
+                                return <RecipeCards recipe={recipe} key={`recipe_${index}`} deleteRecipe={this.handleDelete} />
                             })
                         }
                     </div>

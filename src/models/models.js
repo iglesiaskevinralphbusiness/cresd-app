@@ -13,3 +13,5 @@ export const IRecipe = PropTypes.shape({
     ingredients: PropTypes.array,
     directions: PropTypes.array,
 });
+
+export const IFunc = PropTypes.func;
