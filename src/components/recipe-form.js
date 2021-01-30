@@ -21,7 +21,7 @@ class RecipeForm extends React.Component {
     handleChange = (e, parent) => {
         const { currentTarget: input } = e;
         const recipe = { ...this.state.recipe };
-        if(!parent.name){
+        if(!parent){
             recipe[input.name] = input.value;
         } else {
             recipe[parent.name][parent.index][parent.child] = input.value;
