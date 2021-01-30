@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { map } from 'lodash';
+import { FORM_TYPES } from '../constant/index';
 
 export const GenerateId = (length) => {
     let result = '';
@@ -34,7 +35,15 @@ export const TimeNow = () => {
 export const GenerateRecipeForm = (forms) => {
     let recipe = {};
     map(forms, input => {
-        recipe[input.name] = input.value;
+        if(input.type === FORM_TYPES.number){
+            if(!parseInt(input.value)){
+                recipe[input.name] = 0;
+            } else {
+                recipe[input.name] = parseInt(input.value);
+            }
+        } else {
+            recipe[input.name] = input.value;
+        }
     });
     return recipe;
 }

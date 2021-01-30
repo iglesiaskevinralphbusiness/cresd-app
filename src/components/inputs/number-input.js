@@ -10,7 +10,6 @@ const NumberInput = ({ name, label, type, ...others }) => {
 			id={name}
 			type='number'
 			className='form-control'
-			min="0"
 		/>
 		</div>
 	);
