@@ -11,6 +11,7 @@ const RecipeCards = ({ recipe, deleteRecipe }) => {
                     <h5 className="card-title">{ recipe.title }</h5>
                     <p className="card-text">{ recipe.description }</p>
                     <a className="btn btn-primary mr-2" href={`${PAGE_URL.detailsRecipe}/${recipe.uuid}`} >View</a>
+                    <a className="btn btn-primary mr-2" href={`${PAGE_URL.updateRecipe}/${recipe.uuid}`} >Edit</a>
                     <a className="btn btn-danger" onClick={() => deleteRecipe(recipe.uuid)}>Delete</a>
                 </div>
                 <div className="card-footer">

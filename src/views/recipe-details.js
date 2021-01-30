@@ -15,12 +15,10 @@ class Home extends React.Component {
     componentDidMount(){
         const recipeId = this.props.match.params.id;
         getRecipe(recipeId).then((res) => {
-            console.log(res);
             const recipe = res.data;
             this.setState({ recipe });
         });
         getSpecials().then((res) => {
-            console.log(res);
             const specials = res.data;
             this.setState({ specials });
         });
