@@ -1,5 +1,4 @@
 import Home from '../views/recipe';
-import AddRecipe from '../views/recipe-add';
 import UpdateRecipe from '../views/recipe-update';
 import DetailsRecipe from '../views/recipe-details';
 import NotFound from '../views/404';
@@ -12,7 +11,7 @@ export default [
     },
     {
         path: '/add',
-        component: AddRecipe,
+        component: UpdateRecipe,
         exact: false,
     },
     {

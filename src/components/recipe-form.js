@@ -1,9 +1,10 @@
 import React from "react";
 import RecipeFormInput from './recipe-form-input';
-import { getRecipe } from '../services/services';
-import { FORM_ACTION, FORM_RECIPE_INPUTS, INPUT_GROUP } from '../utils/constant/index';
+import { getRecipe, addRecipe, updateRecipe } from '../services/services';
+import { FORM_ACTION, FORM_RECIPE_INPUTS, INPUT_GROUP, PAGE_URL } from '../utils/constant/index';
 import { GenerateIngredients, GenerateDirections } from '../utils/helpers/index';
-import { findIndex, mapKeys } from 'lodash';
+import { findIndex, mapKeys, map } from 'lodash';
+import { GenerateId } from '../utils/helpers/index';
 
 class RecipeForm extends React.Component {
     state = {
@@ -43,6 +44,32 @@ class RecipeForm extends React.Component {
         this.setState({ forms });
     }
 
+    handleSubmit = e => {
+        e.preventDefault();
+        const { action, recipeId } = this.props;
+        const recipe = this.generateRecipeForm();
+        if(action === FORM_ACTION.add){
+            recipe['uuid'] = GenerateId(20);
+            addRecipe(recipe).then(() => {
+                this.props.history.push(PAGE_URL.home);
+            });
+        } else {
+            recipe['uuid'] = recipeId;
+            updateRecipe(recipeId, recipe).then(() => {
+                this.props.history.push(PAGE_URL.home);
+            });
+        }
+    }
+
+    generateRecipeForm = () => {
+        const { forms } = this.state;
+        let recipe = {};
+        map(forms, input => {
+            recipe[input.name] = input.value;
+        });
+        return recipe;
+    }
+
     componentDidMount(){
         const { action, recipeId } = this.props;
         const forms = [ ...this.state.forms ];
@@ -62,7 +89,7 @@ class RecipeForm extends React.Component {
     render() {
         const { forms } = this.state;
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 { 
                     forms.map(input => {
                         return <RecipeFormInput 
