@@ -1,6 +1,6 @@
 import React from "react"
 import ChildLayout from '../layout/child-layout';
-import RecipeFormInput from '../components/recipe-form-input';
+import FormInput from '../components/recipe-form-input';
 import { getRecipe, addRecipe, updateRecipe } from '../services/services';
 import { FORM_ACTION, FORM_RECIPE_INPUTS, INPUT_GROUP, PAGE_URL } from '../utils/constant/index';
 import { GenerateIngredients, GenerateDirections } from '../utils/helpers/index';
@@ -101,7 +101,7 @@ class Home extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     { 
                         forms.map(input => {
-                            return <RecipeFormInput 
+                            return <FormInput 
                                 key={input.name} 
                                 input={input} 
                                 handleChange={this.handleChange} 

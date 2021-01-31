@@ -47,7 +47,7 @@ const RecipeTable = ({ recipe, specials }) => {
                         <ul className="directions">
                             {
                                 recipe.directions?.map((direction, index) => {
-                                    return <li key={`direction_${index}`}>{ direction.optional ? '(Optional)': ''} { direction.instructions }</li>
+                                    return <li key={`direction_${index}`}>{ direction.optional === true|| direction.optional === 'true' ? '(Optional)': ''} { direction.instructions }</li>
                                 })
                             }
                         </ul>

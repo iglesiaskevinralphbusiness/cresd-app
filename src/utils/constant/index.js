@@ -18,6 +18,7 @@ const FORM_TYPES = {
     text: 'text',
     number: 'number',
     group: 'group',
+    select: 'select',
 };
 
 const FORM_RECIPE_INPUTS = [
@@ -88,7 +89,17 @@ const FORM_RECIPE_INPUTS = [
             {
                 name: 'optional',
                 label: 'Optional',
-                type: FORM_TYPES.text,
+                type: FORM_TYPES.select,
+                list: [
+                    {
+                        label: 'Yes',
+                        value: true,
+                    },
+                    {
+                        label: 'No',
+                        value: false,
+                    }
+                ],
             },
         ]
     },

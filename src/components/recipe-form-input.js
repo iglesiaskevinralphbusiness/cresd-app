@@ -2,8 +2,9 @@ import React from "react";
 import TextInput from  './inputs/text-input';
 import NumberInput from './inputs/number-input';
 import GroupInput from './inputs/group-input';
+import SelectInput from './inputs/select-input';
 import { FORM_TYPES } from '../utils/constant/index';
-import { IAny, IFunc } from '../models/models';
+import { IAny, IArray, IFunc } from '../models/models';
 
 const FormInput = ({ input, handleChange, handleAddItem, handleDeleteItem }) => {
     switch(input.type){
@@ -34,13 +35,23 @@ const FormInput = ({ input, handleChange, handleAddItem, handleDeleteItem }) => 
                 handleAddItem={handleAddItem}
                 handleDeleteItem={handleDeleteItem}
             />
+        case FORM_TYPES.select:
+            return <SelectInput
+                name={input.name}
+                label={input.label}
+                inputs={input.inputs}
+                value={input.value}
+                onChange={handleChange}
+                list={input.list}
+            />
         default:
-            return;
+            return null;
     }
 }
 
 FormInput.propTypes  = {
     input: IAny,
+    list: IArray,
     handleChange: IFunc,
     handleAddItem: IFunc,
     handleDeleteItem: IFunc,
