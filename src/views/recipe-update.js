@@ -25,10 +25,10 @@ class Home extends React.Component {
         const { currentTarget: input } = e;
         const forms = [ ...this.state.forms ];
         if(!parent){
-            const indexSingle = findIndex(forms, form => form.name == input.name);
+            const indexSingle = findIndex(forms, form => form.name === input.name);
             forms[indexSingle].value = input.value;
         } else {
-            const indexParent = findIndex(forms, form => form.name == parent.name);
+            const indexParent = findIndex(forms, form => form.name === parent.name);
             forms[indexParent].value[parent.index][parent.child] = input.value;
         }
         this.setState({ forms });
@@ -36,7 +36,7 @@ class Home extends React.Component {
 
     handleAddItem = (name) => {
         const forms = [ ...this.state.forms ];
-        const index = findIndex(forms, form => form.name == name);
+        const index = findIndex(forms, form => form.name === name);
         if(name === INPUT_GROUP.ingredients){
             forms[index].value.push(GenerateIngredients());
         } else {
@@ -47,7 +47,7 @@ class Home extends React.Component {
 
     handleDeleteItem = (name, index) => {
         const forms = [ ...this.state.forms ];
-        const itemIndex = findIndex(forms, form => form.name == name);
+        const itemIndex = findIndex(forms, form => form.name === name);
         const itemValue = forms[itemIndex].value;
         const recipeItem = itemValue.slice(0, index).concat(itemValue.slice(index + 1, itemValue.length));
         forms[itemIndex].value = recipeItem;
