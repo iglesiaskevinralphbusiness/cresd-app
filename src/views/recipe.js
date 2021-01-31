@@ -22,7 +22,9 @@ class Home extends React.Component {
         getRecipes().then((res) => {
             const recipes = res.data;
             this.setState({ recipes });
-        })
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     render() {

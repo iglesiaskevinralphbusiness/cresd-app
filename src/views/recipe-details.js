@@ -17,10 +17,14 @@ class Home extends React.Component {
         getRecipe(recipeId).then((res) => {
             const recipe = res.data;
             this.setState({ recipe });
+        }).catch((error) => {
+            console.log(error);
         });
         getSpecials().then((res) => {
             const specials = res.data;
             this.setState({ specials });
+        }).catch((error) => {
+            console.log(error);
         });
     }
 
