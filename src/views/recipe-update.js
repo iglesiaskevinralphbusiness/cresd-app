@@ -80,6 +80,7 @@ class Home extends React.Component {
         const forms = [ ...this.state.forms ];
         if(this.getAction() === FORM_ACTION.update){
             getRecipe(id).then((res) => {
+                console.log(res);
                 mapKeys(res.data, (value, key) => {
                     const index = findIndex(forms, form => form.name === key);
                     if(forms[index]){

@@ -25,10 +25,12 @@ HTTP.interceptors.response.use(
         } else {
             const { status } = error.response;
             if (status === 401) {
-                const history = useHistory();
-                history.push(PAGE_URL.pageNotFound);
-                console.error(error);
+                console.log('You are not autorize to access this page!');
+            } else if (status === 404) {
+                console.log('404 Api request not found!');
             }
+
+            return Promise.reject(error.response);
         }
     }
 );
