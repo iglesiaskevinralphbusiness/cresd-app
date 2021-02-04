@@ -70,7 +70,9 @@ class Home extends React.Component {
         } else {
             recipe['uuid'] = id;
             recipe['editDate'] = TimeNow();
-            recipe['images'] = this.state.images;
+            if(this.state.images.full){
+                recipe['images'] = this.state.images;
+            }
             updateRecipe(id, recipe).then(() => {
                 this.props.history.push(PAGE_URL.home);
             });
