@@ -10,6 +10,7 @@ import { GenerateId, TimeNow, GenerateRecipeForm } from '../utils/helpers/index'
 class Home extends React.Component {
     state = {
         forms: FORM_RECIPE_INPUTS,
+        images: {},
     };
 
     getAction(){
@@ -69,6 +70,7 @@ class Home extends React.Component {
         } else {
             recipe['uuid'] = id;
             recipe['editDate'] = TimeNow();
+            recipe['images'] = this.state.images;
             updateRecipe(id, recipe).then(() => {
                 this.props.history.push(PAGE_URL.home);
             });
@@ -78,6 +80,7 @@ class Home extends React.Component {
     componentDidMount(){
         const { id } = this.props.match.params;
         const forms = [ ...this.state.forms ];
+        let images = { ...this.state.images };
         if(this.getAction() === FORM_ACTION.update){
             getRecipe(id).then((res) => {
                 mapKeys(res.data, (value, key) => {
@@ -86,7 +89,10 @@ class Home extends React.Component {
                         forms[index].value = value;
                     }
                 });
-                this.setState({ forms });
+                if(res.data.images){
+                    images = res.data.images;
+                }
+                this.setState({ forms, images });
             }).catch((error) => {
                 console.log(error);
             });
