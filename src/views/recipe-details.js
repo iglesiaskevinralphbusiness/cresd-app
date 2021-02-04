@@ -3,7 +3,7 @@ import ChildLayout from '../layout/child-layout';
 import RecipeTable from '../components/recipe-table';
 import { getRecipe, deleteRecipe, getSpecials } from '../services/services';
 import { PAGE_URL } from '../utils/constant/index';
-
+import RecipeCardsPhoto from '../components/recipe-cards-photo';
 
 class Home extends React.Component {
 
@@ -43,7 +43,7 @@ class Home extends React.Component {
                 <h2>{ recipe.title }</h2>
                 <div>
                     <div className="recipe-detail-cover mb-4">
-                        <img src={ recipe.images?.full } className="img-fluid" alt="..." />
+                        <RecipeCardsPhoto image={recipe.images} size="L" />
                     </div>
                     <RecipeTable recipe={recipe} specials={specials} />
                     <div>
