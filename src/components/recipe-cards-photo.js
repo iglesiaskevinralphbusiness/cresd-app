@@ -1,6 +1,6 @@
 import React from "react";
 import { IAny, IString } from '../models/models';
-import { API_URL } from '../utils/constant/index';
+import { API_URL, IMAGE_SIZE } from '../utils/constant/index';
 
 const RecipeCardsPhoto = ({ image, size }) => {
     return image ? <img src={`${API_URL}${GetSize(image, size)}`} className="card-img-top" alt="..." /> : <p  className="card-img-top"><span>No image</span></p>;
@@ -8,11 +8,11 @@ const RecipeCardsPhoto = ({ image, size }) => {
 
 const GetSize = (image, size) => {
     switch(size){
-        case "L":
+        case IMAGE_SIZE.l:
             return image.full;
-        case "M":
+        case IMAGE_SIZE.m:
             return image.medium;
-        case "S":
+        case IMAGE_SIZE.s:
             return image.small;
         default:
             return image.full;

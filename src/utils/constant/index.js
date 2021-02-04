@@ -110,6 +110,12 @@ const INPUT_GROUP = {
     directions: 'directions',
 }
 
+const IMAGE_SIZE = {
+    l: 'L',
+    m: 'M',
+    s: 'm,'
+}
+
 export {
     API_URL,
     PAGE_URL,
@@ -117,4 +123,5 @@ export {
     FORM_TYPES,
     FORM_RECIPE_INPUTS,
     INPUT_GROUP,
+    IMAGE_SIZE,
 }
