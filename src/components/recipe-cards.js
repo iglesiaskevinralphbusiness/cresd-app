@@ -1,12 +1,13 @@
 import React from "react";
 import { PAGE_URL } from '../utils/constant/index';
 import { IRecipe, IFunc } from '../models/models';
+import RecipeCardsPhoto from './recipe-cards-photo';
 
 const RecipeCards = ({ recipe, deleteRecipe }) => {
     return (
         <div className="col mb-4">
             <div className="card h-100">
-                <img src={recipe.images?.full} className="card-img-top" alt="..." />
+                <RecipeCardsPhoto image={recipe.images} />
                 <div className="card-body">
                     <h5 className="card-title">{ recipe.title }</h5>
                     <p className="card-text">{ recipe.description }</p>
